@@ -12,7 +12,7 @@ namespace Catalog.Api.Repository
 
         Task<IEnumerable<Product>> GetProductsByCategory(string category);
 
-        Task<Product> CreateProduct(Product product);
+        Task CreateProduct(Product product);
         Task<bool> UpdateProduct(Product product);
         Task<bool> DeleteProduct(string id);
     }

@@ -14,15 +14,9 @@ namespace Catalog.Api.Repository
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-
-        public Task<Product> CreateProduct(Product product)
+        public async Task CreateProduct(Product product)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteProduct(string id)
-        {
-            throw new NotImplementedException();
+            await _context.Products.InsertOneAsync(product);
         }
 
         public async Task<Product> GetProductById(string id)
@@ -32,22 +26,28 @@ namespace Catalog.Api.Repository
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await _context.Products.Find(x=>true).ToListAsync();
+            return await _context.Products.Find(x => true).ToListAsync();
         }
 
-        public Task<IEnumerable<Product>> GetProductsByCategory(string category)
+        public async Task<IEnumerable<Product>> GetProductsByCategory(string category)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Find(x => x.Category == category).ToListAsync();
         }
 
-        public Task<IEnumerable<Product>> GetProductsByName(string name)
+        public async Task<IEnumerable<Product>> GetProductsByName(string name)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Find(x => x.Name == name).ToListAsync();
         }
 
-        public Task<bool> UpdateProduct(Product product)
+        public async Task<bool> UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            var updateProduct = await _context.Products.ReplaceOneAsync(x => x.Id == product.Id, product);
+            return updateProduct.IsAcknowledged && updateProduct.ModifiedCount > 0;
+        }
+        public async Task<bool> DeleteProduct(string id)
+        {
+            var deleteProduct = await _context.Products.DeleteOneAsync(x => x.Id == id);
+            return deleteProduct.IsAcknowledged && deleteProduct.DeletedCount > 0;
         }
     }
 }

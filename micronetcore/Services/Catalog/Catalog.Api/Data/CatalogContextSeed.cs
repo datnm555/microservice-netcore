@@ -16,8 +16,9 @@ namespace Catalog.Api.Data
 
         private static IEnumerable<Product> GetPreconfigureProducts()
         {
-            return new List<Product>() {
-                new Product()
+            return new List<Product>
+            {
+                new()
                 {
                     Name = "Asus Laptop",
                     Category ="Computers",
@@ -26,7 +27,7 @@ namespace Catalog.Api.Data
                     ImageFile= "product-1.png",
                     Price = 511.93M
                 },
-                 new Product()
+                 new()
                 {
                     Name = "Hp Laptop",
                     Category ="Computers",
@@ -35,7 +36,7 @@ namespace Catalog.Api.Data
                     ImageFile= "product-2.png",
                     Price = 424.93M
                 },
-                  new Product()
+                  new()
                 {
                     Name = "Dell Laptop",
                     Category ="Computers",
